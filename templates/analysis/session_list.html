@@ -1,0 +1,47 @@
+{%extends 'base.html'%}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    {% block head %}
+      <title>Session list</title>
+    {% endblock %}
+  </head>
+  <body>
+    {% block body %}
+    <div class="jumbotron">
+      <h3>current sessions in db</h3>
+      <table class="table mb-0">
+        <thead>
+          <tr>
+            <th style='width: 8%'>Session</th>
+            <th style='width: 20%'>Identifier</th>
+            <th>Index</th>
+            <th style='width: 8%'>Organism</th>
+            <th>Salmon</th>
+            <th>DNA Fasta</th>
+            <th>cDNA Fasta</th>
+            <th>GTF</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          {% for session in session_list %}
+            <tr>
+              <td><a href="session_detail/{{ session.identifier }}">Sesison: {{ session.pk }}</a></td>
+              <td>{{session.identifier}}</td>
+              <td>{{session.genome_index}}</td>
+              <td>{{ session.organism|default_if_none:"" }} {{session.genome.organism}}</td>
+              <td>{{session.salmon}}</td>
+              <td>{{ session.fasta_dna_file }} {{session.genome.fasta_dna_file}}</td>
+              <td>{{ session.fasta_cdna_file }} {{ session.genome.fasta_cdna_file }}</td>
+              <td>{{ session.gtf_file }} {{ session.genome.gtf_file }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'analysis:session_create' %}"><button type="submit" class="btn btn-primary" name="button">New Session</button><a>
+    </div>
+  {% endblock %}
+  </body>
+</html>

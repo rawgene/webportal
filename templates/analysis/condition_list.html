@@ -1,0 +1,36 @@
+{%extends 'base.html'%}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    {% block head %}
+      <title>conditions list</title>
+    {% endblock %}
+  </head>
+  <body>
+      {% block body %}
+      <div class="jumbotron">
+      <h3>current conditions in db</h3>
+      <table class="table mb-0">
+        <thead>
+          <tr>
+            <th>Session</th>
+            <th>Condition</th>
+            <th>Number Replicates</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for condition in condition_list %}
+            <tr>
+              <td><a href="session_detail/{{ condition.session.identifier }}">{{ condition.session }}</a></td>
+              <td>{{ condition.condition }}</td>
+              <td>{{ condition.no_replicates }}</td>
+              <td><a href="conditions_detail/{{ condition.pk }}">{{ condition.conditions }}</a></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+    </table>
+  </div>
+    {% endblock %}
+  </body>
+</html>

@@ -1,0 +1,32 @@
+{%extends 'base.html'%}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    {% block head %}
+      <title>Debug Page</title>
+    {% endblock %}
+  </head>
+  <body>
+    {% block body %}
+      <h1>debug page</h1>
+
+      <div class="offset-2 col-md-8">
+        <div class="form-group">
+          <form method="POST"  enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form.as_p}}
+            <input type="submit" class='btn btn-primary' value="Submit">
+          </form>
+        </div>
+      </div>
+      <h2>{{debugs}}</h2>
+      <!-- {% for debug in debugs %}
+      <p>{{debug.field_one}}</p>
+      <p>{{debug.identifier}}</p>
+      {% endfor %} -->
+
+
+    {% endblock %}
+  </body>
+</html>

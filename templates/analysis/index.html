@@ -1,0 +1,67 @@
+{%extends 'base.html'%}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    {% block head %}
+    <title>Index</title>
+    {% endblock %}
+  </head>
+  <body>
+    {% block body %}
+
+    {% if messages %}
+      {% for message in messages %}
+        <!-- <div class="alert alert-{{message.tags}}"> -->
+        <!-- <p>message.tags: {{message.tags}}</p> -->
+        <!-- <p>{{message}}</p> -->
+      {% endfor %}
+    {% endif %}
+    <p>navbar has been depreciated.</p>
+    <p>To view all sessions please append /session_list to the url</p>
+    <div class="content alert alert-{{message.tags}}">
+      <h1>SESSION DATABASE</h1>
+      <form action="" method="GET">
+        <input id="search_field_1" type="text" name="q" placeholder="enter session ID", value={{ request.GET.q }}>
+        <br>
+        <input type="submit" id='upload_btn' name="" value='Search DB'>
+        <a style="  text-decoration:none;color:inherit;" href="{% url 'analysis:session_create' %}" style="text-decoration:none"><input type="button" id='upload_btn' name="" value="New Session"></a>
+
+      </form>
+      {% if session_query %}
+      <div class="card success_one mb-3">
+        <div class="card-header">Session Identifier: {{session_query.identifier}}</div>
+        <div class="card-body">
+          <!-- <h5 class="card-title">Session Identifier: {{session_detail.identifier}}</h5> -->
+          <div class="card-text">
+            <table class="table mb-0">
+              <thead>
+                <tr>
+                  <th>Organism</th>
+                  <th>Index</th>
+                  <th>Details</th>
+                </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                    <td>{{session_query.organism|default_if_none:""}}{{session_query.genome.organism}} </td>
+                    <td>{{session_query.genome_index}}</td>
+                    <td><a class='btn btn-success' href="{% url 'analysis:session_detail' session_slug=session_query.identifier %}">Details</a></td>
+                  </tr>
+              </tbody>
+          </table>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      {% if invalid_query %}
+      <div class="jumbotron warning">
+        <h3>Error</h3>
+        <p>Session ID: {{invalid_query}} is not associated with a Session</p>
+        <p>Please enter a valid Session ID</p>
+      </div>
+      {% endif %}
+    </div>
+    {% endblock %}
+  </body>
+</html>
