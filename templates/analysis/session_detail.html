@@ -11,6 +11,7 @@
   </head>
   <body>
     {% block body %}
+    {% load analysis_filters %}
     <div id='wrapper'>
 
       <!-- NAV PANE SELECTION -->
@@ -103,7 +104,7 @@
                     {% for condition in session_detail.conditions_fk.all %}
                     <tr>
                       <!-- <td>{{ condition.pk }}</td> -->
-                      <td class='td_conditions_counter'>{{forloop.counter}}</td>
+                      <td class='td_conditions_counter'>{{forloop.counter }}</td>
                       <td class="td_condition">{{ condition.condition }}</td>
                       <td class="td_replicate">{{ condition.no_replicates }}</td>
                       <td><a class='btn btn-sm btn-success' href="{% url 'analysis:samples_create' session_slug=condition.session.identifier conditions_pk=condition.pk %}">Add Sample</a></td>
@@ -145,9 +146,9 @@
                     <td class='td_samples_counter'>{{forloop.counter}}</td>
                     <td class="td_libtype">{{ sample.libtype }}</td>
                     <td>{{ sample.condition }}</td>
-                    <td>{{ sample.read_1 }}</td>
+                    <td>{{ sample.read_1 | readable }}</td>
                     {% if sample.read_2 %}
-                      <td>{{ sample.read_2 }}</td>
+                      <td>{{ sample.read_2 | readable }}</td>
                     {% endif %}
                     {% if not sample.read_2 %}
                       <td>N/a</td>

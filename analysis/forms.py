@@ -53,8 +53,10 @@ class ConditionsForm(forms.ModelForm):
                 'class':'form-control',
                 'placeholder': 'enter condition here...'
                 }),
+            'no_replicates': forms.TextInput(attrs={
+                'class':'form-control',
+                }),
         }
-
 
 
 class SamplesForm(forms.ModelForm):
@@ -90,8 +92,6 @@ class WorkflowForm(forms.ModelForm):
                 'class':'form-control',
                 }),
 }
-
-
 
 
 class DebugForm(forms.ModelForm):
