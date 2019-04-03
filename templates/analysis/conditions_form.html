@@ -1,5 +1,5 @@
 {%extends 'base.html'%}
-{% load crispy_forms_tags %}
+<!-- {% load crispy_forms_tags %} -->
 <!DOCTYPE html>
 <html>
   <head>
@@ -20,9 +20,7 @@
                 <h4>NEW CONDITION</h4>
               </div>
               <hr class="my-4">
-
-              {{form|crispy}}
-              <br>
+              {{form.as_p}}
               <input type="submit" class='create_btn' value="Submit">
             </form>
           </div>
