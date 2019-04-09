@@ -79,7 +79,8 @@ function wf_select_volcano(param){
     endpoint += checkbox_selected[i]
     endpoint += '_'
   }
-  console.log(endpoint)
+  // console.log(endpoint)
+  // console.log(checkbox_selected)
   d3_run_volcano(endpoint)
 }
 
@@ -87,16 +88,20 @@ dataset = []
 function d3_run_volcano(endpoint){
   console.log('the endpoint selected: ' + endpoint)
   d3.json(endpoint).then(function(data) {
-    console.log('d3_run_volcano called')
+    console.log('length data: ' + data.length)
     dataset.push(data)
     dataFilter_volcano()
+    // testDataset()
   });
 }
 
+function testDataset(){
+  console.log(dataset[dataset.length-1])
+}
 
 function dataFilter_volcano(){
-  console.log(dataset)
-  dataset = dataset[0]
+  // console.log(dataset)
+  dataset = dataset[dataset.length-1]
   dataset = dataset.filter(function(d){return d.p_adj != null});
   dataset = dataset.filter(function(d){return d.p_adj != 0});
   // myPlot()
@@ -183,6 +188,7 @@ function newPlot(){
       circles()
       hLines()
       vLines()
+
 }
 
 function circles(){
