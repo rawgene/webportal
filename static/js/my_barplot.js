@@ -27,7 +27,7 @@ colours = [
   "#FFFF6D"];
 
   var dataFilter_barplot = function(dataset){
-    dataset = dataset[0];
+    dataset = dataset[dataset.length-1];
     dataset = dataset.filter(function(d){return d.p_adj != null; });
     dataset = dataset.filter(function(d){return - Math.log10(parseFloat(d.p_adj)) > p_threshold && (parseFloat(d.log2foldchange) > log2_threshold || parseFloat(d.log2foldchange) <  - log2_threshold);});
     var all_values  = [];

@@ -24,7 +24,6 @@
           <li class='sidebar-nav'>
             <input  type="checkbox"  name="" class='checkbox_wf' value="{{key}}-{{forloop.counter}}">
             <label  for="{{key}}-{{forloop.counter}}">{{ csv }}</label><br>
-
           </li>
         {% endfor %}
       </div>
@@ -32,7 +31,6 @@
     </fieldset>
   </ul>
 </div>
-
 
 
 <div id='page_content_wrapper'>
@@ -64,15 +62,17 @@
   </div>
   <div class="col-md-11">
     <div id="id_tab" class="tab-content">
-      <div id="id_volcano" class="container tab-pane active">
+      <div id="id_volcano" class="container tab-pane active legend">
           <div class="plotting_column" id="id_plotting_column_volcano"><svg id='id_painting_volcano'></svg></div>
       </div>
-
       <div id="id_barplot" class="container tab-pane fade">
           <div class="plotting_column" id="id_plotting_column_barplot" ><svg id='id_painting_barplot'></svg></div>
       </div>
     </div>
   </div>
+</div>
+<div class="" id='id_svg_legend'>
+
 </div>
 </div>
 </div> <!-- END WRAPPER -->
