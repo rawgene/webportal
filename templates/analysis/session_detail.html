@@ -50,10 +50,7 @@
           <div id="session" class="container tab-pane"><br>
             <div class="card mb-3">
               <div class="card-header">
-                <h5>
-                  Session Petails
-
-                </h5>
+                <h5>Session Details</h5>
               </div>
               <div class="card-body">
                 <p>
@@ -61,6 +58,9 @@
                 </p>
                 <p>Index: {{session_detail.genome_index}}</p>
                 <p>Organism: {{ session_detail.organism|default_if_none:"" }} {{session_detail.genome.organism}}</p>
+                <p>Email: <input type="text" name="" value=""></p>
+
+
                 {% if results %}
                   <p>Download Data: <a href="{% url 'analysis:data_download' session_slug=session_detail.identifier %}"><button class='btn btn-sm btn-info' style='margin:5px;'><i class="fas fa-download"></i></button></a></p>
                 {% endif %}

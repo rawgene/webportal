@@ -103,7 +103,6 @@ class SessionDetailView(View):
         context = {'session_detail':session,'form':form, 'session_data_dir': session_data_dir, 'no_svg':'no_svg'}
         return render(request, self.template_name, context)
 
-
     def post(self, request, session_slug):
         instance = get_object_or_404(Session, identifier=session_slug)
         # conditions = instance.conditions_fk.all() # returns queryset of session instance conditions
@@ -152,6 +151,17 @@ def DataDownload(request, session_slug):
     response['Content-Disposition'] = 'attachment; filename=results.zip'
     return response
 
+
+from django.core.mail import send_mail
+def SendMail(request, session_slug):
+    send_mail(
+        'Subject here',
+        'tsl with port 25',
+        'rawgene@googlegroups.com',
+        ['gahewa@digital-email.com'],
+        fail_silently=False,
+    )
+    return HttpResponse('success')
 
 class SessionCreateView(CreateView):
     template_name = 'analysis/session_form.html'

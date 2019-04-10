@@ -16,7 +16,8 @@ urlpatterns = [
     path('session_detail/<slug:session_slug>/', views.SessionDetailView.as_view(), name='session_detail'),
     path('session_detail/<slug:session_slug>/svg_download', views.SVGDownload, name='svg_download'),
     path('session_detail/<slug:session_slug>/data_download', views.DataDownload, name='data_download'),
-    
+    path('session_detail/<slug:session_slug>/send_mail', views.SendMail, name='send_mail'),
+
 
 
     path('session_create', views.SessionCreateView.as_view(), name='session_create'),
