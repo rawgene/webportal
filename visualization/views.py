@@ -39,7 +39,7 @@ class VisualizationIndexView(View):
                     DGE_list = path['DGE']
                     DGE_csv_list = []
                     for DGE_csv in DGE_list:
-                        csv_name = DGE_csv.split('/')[-1]
+                        csv_name = DGE_csv.split('/')[-1].split('_')[0]
                         DGE_csv_list.append(csv_name)
                     wf_dict[wf] = DGE_csv_list
                 except:
@@ -86,10 +86,6 @@ def WorkflowDataMod(request, session_slug, workflow_slug):
         paths = workflow.paths
         paths = eval(paths)
         paths = paths['DGE']
-        # print(paths)
-        # print(paths[0])
-        # print(i)
-        # print([selected_file[i]])
         for e in selected_file[i]:
             print(f"this is test {int(e) - 1}")
             selected_csv.append(paths[int(e) - 1])
@@ -123,14 +119,7 @@ def wfDownload(request, session_slug, workflow_slug):
         # selected_wf_list = [wf for wf in selected_wf_list if wf % 2 == 1]
         selected_wf_list = selected_wf_list[1::2]
         print(f'\n{selected_wf_list}')
-    # print(f'\n SVG Downlod called')
-    # img_path = os.path.join(settings.BASE_DIR, 'static/images', session_slug, 'workflow.svg')
-    # img_wrapper = FileWrapper(open(img_path,'rb'))
-    # response = HttpResponse(img_wrapper)
-    # response['X-Sendfile'] = img_path
-    # response['Content-Length'] = os.stat(img_path).st_size
-    # response['Content-Disposition'] = 'attachment; filename=workflow.svg'
-    # return response
+
 
 #     with open (DGE_csv) as in_file:
 #         csvReader = pandas.read_csv(in_file)

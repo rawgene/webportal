@@ -36,11 +36,11 @@
 }
 
 #wrapper.menuDisplayed #sidebar_wrapper{
-  width: 360px;
+  width: 280px;
 }
 
 #wrapper.menuDisplayed #page_content_wrapper{
-  padding-left: 360px;
+  padding-left: 280px;
   /* margin-top: -300px; */
 }
 #sidebar_wrapper{

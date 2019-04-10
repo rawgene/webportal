@@ -22,7 +22,7 @@
         <div class='panel'>
         {% for csv in value %}
           <li class='sidebar-nav'>
-            <input  type="checkbox"  name="" class='checkbox_wf' value="{{key}}-{{forloop.counter}}">
+            <input  type="checkbox"  name="{{csv}}" class='checkbox_wf' value="{{key}}-{{forloop.counter}}">
             <label  for="{{key}}-{{forloop.counter}}">{{ csv }}</label><br>
           </li>
         {% endfor %}
@@ -65,7 +65,7 @@
       <div id="id_volcano" class="container tab-pane active legend">
           <div class="plotting_column" id="id_plotting_column_volcano"><svg id='id_painting_volcano'></svg></div>
       </div>
-      <div id="id_barplot" class="container tab-pane fade">
+      <div id="id_barplot" class="container tab-pane fade legend">
           <div class="plotting_column" id="id_plotting_column_barplot" ><svg id='id_painting_barplot'></svg></div>
       </div>
     </div>

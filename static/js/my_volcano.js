@@ -68,10 +68,12 @@ colours = [
 
 function wf_select_volcano(param){
   checkbox_selected = []
+  csv_selected = []
   var all_checkboxes = $('.checkbox_wf')
   for(var i = 0; i < all_checkboxes.length; i++){
     if (all_checkboxes[i].checked) {
       checkbox_selected.push(all_checkboxes[i].value)
+      csv_selected.push(all_checkboxes[i].name)
      }
   }
   var endpoint = 'wf_data_mod/';
@@ -80,7 +82,7 @@ function wf_select_volcano(param){
     endpoint += '_'
   }
   // console.log(endpoint)
-  // console.log(checkbox_selected)
+  console.log(csv_selected)
   d3_run_volcano(endpoint)
 }
 
@@ -95,9 +97,6 @@ function d3_run_volcano(endpoint){
   });
 }
 
-function testDataset(){
-  console.log(dataset[dataset.length-1])
-}
 
 function dataFilter_volcano(){
   // console.log(dataset)
@@ -188,7 +187,35 @@ function newPlot(){
       circles()
       hLines()
       vLines()
+      legend()
+}
 
+
+function legend(){
+  console.log(svg)
+  svg.selectAll(".legend").remove()
+  var our_colour = [];
+  var i;
+
+  console.log(our_colour)
+  var legend = svg.selectAll(".legend")
+     .data(colours)
+    .enter().append("g")
+     .attr("class","legend");
+  for(i=0;i < checkbox_selected.length;i++){
+    legend.append("rect")
+        .attr("x", w - 200)
+        .attr("y", h - 550 + i*30)
+        .attr("width", 18)
+        .attr("height", 18)
+        .style("fill", colours[i]);
+    legend.append("text")
+       .attr("x",w - 150)
+       .attr("y",h - 540 + i*30)
+       .attr("dy",".35em")
+       .style("text-achor","end")
+       .text(csv_selected[i])
+  }
 }
 
 function circles(){
@@ -235,8 +262,6 @@ function circles(){
           });
         });
 }
-
-
 
 
 function vLines(){
