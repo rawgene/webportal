@@ -92,8 +92,12 @@ class SessionDetailView(View):
             except FileExistsError:
                 print('\nFile exists already')
             copyfile(session_wf, image_path)
-            session = Session.objects.get(identifier=session_slug)
+
             context = {'session_detail':session, 'form':form, 'session_data_dir': session_data_dir, 'session_wf': session_wf, 'svg_url':svg_url}
+            if os.path.isfile(session_data_dir + '/results.zip'):
+                context['results'] = 'results'
+
+            session = Session.objects.get(identifier=session_slug)
             return render(request, self.template_name, context)
 
         context = {'session_detail':session,'form':form, 'session_data_dir': session_data_dir, 'no_svg':'no_svg'}
@@ -127,6 +131,25 @@ def SVGDownload(request, session_slug):
     response['X-Sendfile'] = img_path
     response['Content-Length'] = os.stat(img_path).st_size
     response['Content-Disposition'] = 'attachment; filename=workflow.svg'
+    return response
+
+
+def DataDownload(request, session_slug):
+    # print(f'\n Data Downlod called')
+    session_data_dir = os.path.join(settings.DATA_DIR, session_slug)
+    print(f'\n{session_data_dir}')
+    session_zip = session_data_dir + '/results.zip'
+    print(f'\n{session_zip}')
+    # return session_data
+    data_download_dir = os.path.join(settings.BASE_DIR, 'static/data_download')
+    zip_path = os.path.join(data_download_dir, 'results.zip')
+    print(f'\n{zip_path}')
+    copyfile(session_zip, zip_path)
+    zip_wrapper = FileWrapper(open(zip_path, 'rb'))
+    response = HttpResponse(zip_wrapper)
+    response['X-Sendfile'] = zip_path
+    response['Content-Length'] = os.stat(zip_path).st_size
+    response['Content-Disposition'] = 'attachment; filename=results.zip'
     return response
 
 

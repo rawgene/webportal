@@ -61,12 +61,15 @@
                 </p>
                 <p>Index: {{session_detail.genome_index}}</p>
                 <p>Organism: {{ session_detail.organism|default_if_none:"" }} {{session_detail.genome.organism}}</p>
+                {% if results %}
+                  <p>Download Data: <a href="{% url 'analysis:data_download' session_slug=session_detail.identifier %}"><button class='btn btn-sm btn-info' style='margin:5px;'><i class="fas fa-download"></i></button></a></p>
+                {% endif %}
+
                 {% if session_detail.status %}
-                  {{no_svg}}
+                  <!-- {{no_svg}} -->
                   <!-- {{session_wf}} -->
                   <!-- static/images/{{session_detail.identifier}}/workflow.svg -->
                   {% if session_wf %}
-                    <h5>Workflow Schematic</h5>
                     <object data="{% static 'images/' %}{{session_detail.identifier}}/workflow.svg" type="image/svg+xml" id='id_demo_wf' style='width:90%; padding:10px;'>
                     </object>
                     <a href="{% url 'analysis:svg_download' session_slug=session_detail.identifier %}">Download</a>
@@ -285,24 +288,8 @@
     document.execCommand("copy");
   }
 
-  $('#id_svg_download').click(function(e){
-    console.log('svg download executed')
-    var endpoint = 'svg_download'
-    console.log(endpoint)
-    $.ajax({
-      method: 'GET',
-      url: endpoint,
-      success: function(data){
-        console.log('ajax fired')
-        return data
-        // console.log(data)
-      },
-      error: function(error_data){
-        console.log('error')
-        console.log(error_data)
-      }
-    })
-  });
+
+
 
   </script>
 
