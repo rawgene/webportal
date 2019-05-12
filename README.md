@@ -1,6 +1,9 @@
-# webportal
+# Webportal
+This repo contains the front-end interface of RAWG and is built with Django framework.
 
-## Development guide
+For an online demo of the website, please see [demo](http://rawg.tony.tc)
+
+## Webportal setup guide
 For security reasons, Django's setting file is masked. For local development, you should make a copy of the `settings.py` and call it `local_settings.py`
   
 You can run `cp ./webportal/settings.py ./webportal/local_settings.py` from the repository root.
