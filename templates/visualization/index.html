@@ -22,7 +22,7 @@
         <div class='panel'>
         {% for csv in value %}
           <li class='sidebar-nav'>
-            <input  type="checkbox"  name="" class='checkbox_wf' value="{{key}}-{{forloop.counter}}">
+            <input  type="checkbox"  name="{{csv}}" class='checkbox_wf' value="{{key}}-{{forloop.counter}}">
             <label  for="{{key}}-{{forloop.counter}}">{{ csv }}</label><br>
           </li>
         {% endfor %}
@@ -50,7 +50,7 @@
 
 
 
-<div class="row">
+<div class="row" style='margin:1px'>
   <div class="col-md-1">
     <label for="">P Value</label>
     <input id='id_p_threshold' type="range" min="1" max="50" class="slider" class="p_threshold">
@@ -65,7 +65,7 @@
       <div id="id_volcano" class="container tab-pane active legend">
           <div class="plotting_column" id="id_plotting_column_volcano"><svg id='id_painting_volcano'></svg></div>
       </div>
-      <div id="id_barplot" class="container tab-pane fade">
+      <div id="id_barplot" class="container tab-pane fade legend">
           <div class="plotting_column" id="id_plotting_column_barplot" ><svg id='id_painting_barplot'></svg></div>
       </div>
     </div>

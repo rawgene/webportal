@@ -46,10 +46,12 @@ colours = [
 
   function wf_select_barplot(param){
     checkbox_selected = []
+    csv_selected = []
     var all_checkboxes = $('.checkbox_wf')
     for(var i = 0; i < all_checkboxes.length; i++){
       if (all_checkboxes[i].checked) {
         checkbox_selected.push(all_checkboxes[i].value)
+        csv_selected.push(all_checkboxes[i].name)
        }
     }
     var endpoint = 'wf_data_mod/';
@@ -61,7 +63,7 @@ colours = [
     d3_run_barplot(endpoint)
   }
 
-
+var dataset = []
 
 function d3_run_barplot(endpoint){
   console.log(endpoint)
@@ -115,6 +117,7 @@ var newPlot_Barplot = function(){
     .attr("class", "axis") //Assign "axis" class
     .call(yAxis);
 
+
     // text label for the y axis
     svg.append("text")
       .attr("transform", "rotate(-90)")
@@ -125,6 +128,7 @@ var newPlot_Barplot = function(){
       .style("text-anchor", "middle")
       .text("Number of significant genes");
 
+    barLegend()
     var barPadding = 10;
 
     svg.selectAll("rect")
@@ -150,3 +154,30 @@ var newPlot_Barplot = function(){
       d3.select("#label").remove();
     });
   };
+
+  function barLegend(){
+    var svg = d3.select("#id_painting_barplot")
+    // console.log('wasnt me')
+    svg.selectAll(".legend").remove()
+    var our_colour = [];
+    var i;
+
+    var legend = svg.selectAll(".legend")
+       .data(colours)
+      .enter().append("g")
+       .attr("class","legend");
+    for(i=0;i < checkbox_selected.length;i++){
+      legend.append("rect")
+          .attr("x", w - 200)
+          .attr("y", h - 520 + i*30)
+          .attr("width", 18)
+          .attr("height", 18)
+          .style("fill", colours[i]);
+      legend.append("text")
+         .attr("x",w - 150)
+         .attr("y",h - 510 + i*30)
+         .attr("dy",".35em")
+         .style("text-achor","end")
+         .text(csv_selected[i])
+    }
+  }
