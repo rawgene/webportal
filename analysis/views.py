@@ -82,8 +82,12 @@ class SessionDetailView(View):
 
         if os.path.isfile(session_data_dir + '/workflow.svg'): # check if workflow.svg has been generated
             session_wf = session_data_dir + '/workflow.svg'
+            cwl = session_data_dir + '/workflow.cwl'
+            input_file = session_data_dir + '/input.yml'
             image_dir = os.path.join(settings.BASE_DIR, 'static/images', session_slug)
             image_path = os.path.join(image_dir, 'workflow.svg')
+            cwl_path = os.path.join(image_dir, 'workflow.cwl')
+            input_file_path = os.path.join(image_dir, 'input.yml')
             fs = FileSystemStorage()
             svg_url = fs.url(image_path)
             print(f'\n the fs url: {svg_url}')
@@ -92,7 +96,8 @@ class SessionDetailView(View):
             except FileExistsError:
                 print('\nFile exists already')
             copyfile(session_wf, image_path)
-
+            copyfile(cwl, cwl_path)
+            copyfile(input_file, input_file_path)
             context = {'session_detail':session, 'form':form, 'session_data_dir': session_data_dir, 'session_wf': session_wf, 'svg_url':svg_url}
             if os.path.isfile(session_data_dir + '/results.zip'):
                 context['results'] = 'results'
@@ -151,6 +156,25 @@ def DataDownload(request, session_slug):
     response['Content-Disposition'] = 'attachment; filename=results.zip'
     return response
 
+def CWLDownload(request, session_slug):
+    print(f'\n CWL Downlod called')
+    img_path = os.path.join(settings.BASE_DIR, 'static/images', session_slug, 'workflow.cwl')
+    img_wrapper = FileWrapper(open(img_path,'rb'))
+    response = HttpResponse(img_wrapper)
+    response['X-Sendfile'] = img_path
+    response['Content-Length'] = os.stat(img_path).st_size
+    response['Content-Disposition'] = 'attachment; filename=workflow.cwl'
+    return response
+
+def InputDownload(request, session_slug):
+    print(f'\n Input Downlod called')
+    img_path = os.path.join(settings.BASE_DIR, 'static/images', session_slug, 'input.yml')
+    img_wrapper = FileWrapper(open(img_path,'rb'))
+    response = HttpResponse(img_wrapper)
+    response['X-Sendfile'] = img_path
+    response['Content-Length'] = os.stat(img_path).st_size
+    response['Content-Disposition'] = 'attachment; filename=input.yml'
+    return response
 
 from django.core.mail import send_mail
 def SendMail(request, session_slug):

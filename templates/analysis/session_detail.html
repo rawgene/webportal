@@ -72,7 +72,11 @@
                   {% if session_wf %}
                     <object data="{% static 'images/' %}{{session_detail.identifier}}/workflow.svg" type="image/svg+xml" id='id_demo_wf' style='width:90%; padding:10px;'>
                     </object>
-                    <a href="{% url 'analysis:svg_download' session_slug=session_detail.identifier %}">Download</a>
+                    <br>
+		                <p>Download files</p>
+                    <a href="{% url 'analysis:svg_download' session_slug=session_detail.identifier %}">SVG</a><br>
+		                <a href="{% url 'analysis:cwl_download' session_slug=session_detail.identifier %}">CWL</a><br>
+		                <a href="{% url 'analysis:input_download' session_slug=session_detail.identifier %}">Workflow input file</a>
                   {% else %}
                     <h3>workflow being generated</h3>
                     <div class="spinner-border spinner" role="status">
