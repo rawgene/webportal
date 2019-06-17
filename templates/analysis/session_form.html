@@ -88,7 +88,7 @@
           }
         });
 
-        $('#id_genome_index').on('click', function(){
+        $('#id_genome_index').change(function(){
           if ($('#id_genome_index option:selected').val() == 'pre_index'){
             hide(['id_organism','id_salmon','id_fasta_dna_file','id_fasta_cdna_file','id_gtf_file', 'id_reactome']) & unhide(['id_genome'])
           }
@@ -97,7 +97,7 @@
           }
       });
 
-      $('#id_salmon').on('click', function(){
+      $('#id_salmon').change(function(){
         if ($('#id_salmon option:selected').val() === "true"){ // salmon analysis required
           unhide(['id_fasta_dna_file','id_fasta_cdna_file', 'id_gtf_file', 'id_reactome'])
         }
