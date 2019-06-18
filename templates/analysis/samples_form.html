@@ -66,7 +66,7 @@
             }
           }
         });
-        $('#id_libtype').on('click', function(){
+        $('#id_libtype').change(function(){
           if ($('#id_libtype option:selected').val() == 'PE'){
             console.log('pe selected')
             unhide(['id_read_1', 'id_read_2', 'id_accession'])
